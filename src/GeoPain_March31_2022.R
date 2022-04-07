@@ -557,9 +557,11 @@ tsne_unbalanced_other <- Rtsne(tsne_unbalanced_other_data, dims = 2, theta = 0.5
 tsne_plot_unbalanced_other <- data.frame(x = tsne_unbalanced_other$Y[,1], y = tsne_unbalanced_other$Y[,2], col = Data_unbalanced$Y_unbalanced)
 p3b_1 <- ggplot(tsne_plot_unbalanced_other) + geom_point(aes(x=x, y=y, color=col)) + ggtitle("X_Unbalanced_other (tSNE)")
 X_other_tSNE_record1 <- which(tsne_unbalanced_other$Y[,1]>9) # seed 100
-X_other_tSNE_record2 <- which(tsne_unbalanced_other$Y[,1]<=9) 
+X_other_tSNE_record2 <- which((tsne_unbalanced_other$Y[,1]-17.3)^2 + tsne_unbalanced_other$Y[,2]^2 <= 1.8^2) 
+X_other_tSNE_record3 <- which(tsne_unbalanced_other$Y[,1]<=-17 & tsne_unbalanced_other$Y[,2]>0) 
 X_other_tSNE_subject1 = X_unbalanced_other[X_other_tSNE_record1,]
 X_other_tSNE_subject2 = X_unbalanced_other[X_other_tSNE_record2,]
+X_other_tSNE_subject3 = X_unbalanced_other[X_other_tSNE_record3,]
 
 # 3D
 tsne_unbalanced_other_3D <- Rtsne(tsne_unbalanced_other_data, dims = 3, theta = 0.5, check_duplicates = FALSE) 

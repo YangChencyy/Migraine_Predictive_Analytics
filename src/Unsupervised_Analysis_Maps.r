@@ -93,12 +93,16 @@ Patients_IDs_pain_tSNE_record3 <-
 
 ## OTHER
 ## Figure 12 in the UnsupervisedAnalysis document
-X_other_tSNE_record1 <- which(tsne_unbalanced_other$Y[,1]>9) # seed 100
-X_other_tSNE_record2 <- which(tsne_unbalanced_other$Y[,1]<=9) 
+X_other_tSNE_record1 <- which(tsne_unbalanced_other$Y[,1]>9) 
+X_other_tSNE_record2 <- which((tsne_unbalanced_other$Y[,1]-17.3)^2 + tsne_unbalanced_other$Y[,2]^2 <= 1.8^2) 
+X_other_tSNE_record3 <- which(tsne_unbalanced_other$Y[,1]<=-17 & tsne_unbalanced_other$Y[,2]>0) 
 X_other_tSNE_subject1 = X_unbalanced_other[X_other_tSNE_record1,]
 X_other_tSNE_subject2 = X_unbalanced_other[X_other_tSNE_record2,]
+X_other_tSNE_subject3 = X_unbalanced_other[X_other_tSNE_record3,]
+
 X_other_tSNE_record1_IDs <- Unbalanced_IDs_map[X_other_tSNE_record1,]
 X_other_tSNE_record2_IDs <- Unbalanced_IDs_map[X_other_tSNE_record2,]
+X_other_tSNE_record3_IDs <- Unbalanced_IDs_map[X_other_tSNE_record3,]
 Patients_IDs_other_tSNE_record1 <- 
   cbind(names(sort(table(X_other_tSNE_record1_IDs[,2]),decreasing = T)),
         unname(sort(table(X_other_tSNE_record1_IDs[,2]),decreasing = T)))
@@ -111,6 +115,12 @@ Patients_IDs_other_tSNE_record2 <-
 Patients_IDs_other_tSNE_record2 <- 
   data.frame(PatientID=Patients_IDs_other_tSNE_record2[,1],
              Frequency=Patients_IDs_other_tSNE_record2[,2])
+Patients_IDs_other_tSNE_record3 <- 
+  cbind(names(sort(table(X_other_tSNE_record3_IDs[,2]),decreasing = T)),
+        unname(sort(table(X_other_tSNE_record3_IDs[,2]),decreasing = T)))
+Patients_IDs_other_tSNE_record3 <- 
+  data.frame(PatientID=Patients_IDs_other_tSNE_record3[,1],
+             Frequency=Patients_IDs_other_tSNE_record3[,2])
 
 
 ## Top50
@@ -166,6 +176,8 @@ dataset_names <- list('Cluster 1 - tSNE all' = data.frame(Record=X_tSNE_record1_
                       'Cluster 1 tSNE OTHER Patients' = Patients_IDs_other_tSNE_record1,
                       'Cluster 2 tSNE OTHER' = data.frame(Record=X_other_tSNE_record2_IDs[,1],UniqueID=X_other_tSNE_record2_IDs[,2]),
                       'Cluster 2 tSNE OTHER Patients' = Patients_IDs_other_tSNE_record2,
+                      'Cluster 3 tSNE OTHER' = data.frame(Record=X_other_tSNE_record2_IDs[,1],UniqueID=X_other_tSNE_record3_IDs[,2]),
+                      'Cluster 3 tSNE OTHER Patients' = Patients_IDs_other_tSNE_record3,
                       'Cluster 1 - tSNE TOP50' = data.frame(Record=X_top50_tSNE_record1_IDs[,1],UniqueID=X_top50_tSNE_record1_IDs[,2]),
                       'Cluster 1 tSNE TOP50 Patients' = Patients_IDs_top50_tSNE_record1,
                       'Cluster 2 - tSNE TOP50' = data.frame(Record=X_top50_tSNE_record2_IDs[,1],UniqueID=X_top50_tSNE_record2_IDs[,2]),
